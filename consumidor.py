@@ -1,4 +1,7 @@
 import socket
+import time
+import random
+
 
 HOST = 'localhost'
 PORT = 6000
@@ -11,9 +14,9 @@ print("=" * 50)
 print(" CONSUMIDOR CONECTADO ")
 print("=" * 50)
 
-while True:
+""" while True:
 
-    opcao = input("\nDigite ENTER para ler uma requisição ou 'sair': ")
+   opcao = input("\nDigite ENTER para ler uma requisição ou 'sair': ")
 
     if opcao.lower() == "sair":
         break
@@ -35,6 +38,37 @@ while True:
 
         print(f"\n[REQUISIÇÃO RECEBIDA] {resposta}")
 
-client.close()
+"""
+try:
 
-print("\nConexão encerrada.")
+    while True:
+
+        print("\n[SOLICITANDO REQUISIÇÃO...]")
+
+        client.send("LER".encode())
+
+        resposta = client.recv(1024).decode()
+
+        if resposta == "FILA_VAZIA":
+
+            print("[FILA] Nenhuma requisição disponível.")
+
+        elif resposta == "ERRO AO CONECTAR NO SERVIDOR PRODUTOR":
+
+            print("[ERRO] Falha ao conectar no servidor produtor.")
+
+        else:
+
+            print(f"[REQUISIÇÃO RECEBIDA] {resposta}")
+
+        tempo = random.randint(6, 10)
+
+        print(f"[AGUARDANDO {tempo}s PARA NOVA LEITURA]")
+
+        time.sleep(tempo)
+
+except KeyboardInterrupt:
+
+    print("\nEncerrando consumidor...")
+    
+client.close()
