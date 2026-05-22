@@ -48,20 +48,16 @@ try:
 
     while True:
 
-        # escolhe mensagem aleatória
         mensagem = random.choice(mensagens)
 
         print(f"\n[ENVIANDO] {mensagem}")
 
-        # envia para servidor
         client.send(mensagem.encode())
 
-        # recebe resposta
         resposta = client.recv(1024).decode()
 
         print(f"[SERVIDOR] {resposta}")
 
-        # espera entre 2 e 5 segundos
         tempo = random.randint(2, 5)
 
         time.sleep(tempo)
