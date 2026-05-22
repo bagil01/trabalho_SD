@@ -58,7 +58,7 @@ try:
 
         print(f"[SERVIDOR] {resposta}")
 
-        tempo = random.randint(2, 5)
+        tempo = random.randint(5, 7)
 
         time.sleep(tempo)
 
