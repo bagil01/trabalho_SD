@@ -1,6 +1,21 @@
-# produtor.py
-
 import socket
+import time
+import random
+
+mensagens = [
+
+    "Pedido de pagamento",
+    "Atualizacao de estoque",
+    "Novo usuario cadastrado",
+    "Compra realizada",
+    "Solicitacao de relatorio",
+    "Requisicao de login",
+    "Atualizacao de perfil",
+    "Pedido de suporte",
+    "Processamento de compra",
+    "Verificacao de dados"
+
+]
 
 HOST = 'localhost'
 PORT = 5000
@@ -13,7 +28,7 @@ print("=" * 50)
 print(" PRODUTOR CONECTADO ")
 print("=" * 50)
 
-while True:
+"""while True:
 
     mensagem = input("\nDigite a requisição (ou sair): ")
 
@@ -28,3 +43,29 @@ while True:
 client.close()
 
 print("\nConexão encerrada.")
+"""
+try:
+
+    while True:
+
+        # escolhe mensagem aleatória
+        mensagem = random.choice(mensagens)
+
+        print(f"\n[ENVIANDO] {mensagem}")
+
+        # envia para servidor
+        client.send(mensagem.encode())
+
+        # recebe resposta
+        resposta = client.recv(1024).decode()
+
+        print(f"[SERVIDOR] {resposta}")
+
+        # espera entre 2 e 5 segundos
+        tempo = random.randint(2, 5)
+
+        time.sleep(tempo)
+
+except KeyboardInterrupt:
+
+    print("\nEncerrando produtor...")
