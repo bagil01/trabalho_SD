@@ -61,7 +61,7 @@ try:
 
             print(f"[REQUISIÇÃO RECEBIDA] {resposta}")
 
-        tempo = random.randint(7, 10)
+        tempo = 7
 
         print(f"[AGUARDANDO {tempo}s PARA NOVA LEITURA]")
 
