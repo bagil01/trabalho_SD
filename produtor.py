@@ -17,33 +17,33 @@ mensagens = [
 
 ]
 
+
 HOST = 'localhost'
 PORT = 5000
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+
 client.connect((HOST, PORT))
 
-print("=" * 50)
-print(" PRODUTOR CONECTADO ")
-print("=" * 50)
 
-"""while True:
+resposta_inicial = client.recv(1024).decode()
 
-    mensagem = input("\nDigite a requisição (ou sair): ")
 
-    if mensagem.lower() == "sair":
-        break
-    client.send(mensagem.encode())
+if resposta_inicial == "LIMITE_ATINGIDO":
 
-    resposta = client.recv(1024).decode()
+    print("\n[ERRO] Limite máximo de produtores atingido.")
 
-    print(f"[SERVIDOR] {resposta}")
+    client.close()
 
-client.close()
+    exit()
 
-print("\nConexão encerrada.")
-"""
+elif resposta_inicial == "CONECTADO":
+
+    print("=" * 50)
+    print(" PRODUTOR CONECTADO ")
+    print("=" * 50)
+
 try:
 
     while True:
@@ -60,8 +60,13 @@ try:
 
         tempo = 5
 
+        print(f"[AGUARDANDO {tempo}s]")
+
         time.sleep(tempo)
 
 except KeyboardInterrupt:
 
     print("\nEncerrando produtor...")
+
+
+client.close()
